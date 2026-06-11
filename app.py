@@ -1008,10 +1008,8 @@ with team_ratings_tab:
         "Overall Rating",
         ascending=False
     )
-    st.markdown(
-        df_to_html_table(
-            ratings_df,
-            classes="wc-table ratings-table"
-        ),
-        unsafe_allow_html=True
+    st.dataframe(
+        ratings_df,
+        use_container_width=True,
+        hide_index=True
     )
