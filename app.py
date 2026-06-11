@@ -975,8 +975,12 @@ with best_matchups_tab:
 with team_ratings_tab:
     st.header("Team Ratings")
     st.caption(
-        "Add methodology note here. Example: These ratings estimate each team's attacking efficiency, defensive efficiency, and overall strength. "
-        "They power the match-level goal projections used throughout the simulator."
+        "These ratings are used to power the site's simulations. They are based off of results from matches played between FIFA Top 100 teams from 2023-Present, as well as from the 2010, 2014, 2018, and 2022 World Cups."
+        "A value iteration method was used to calculate teams' offensive and defensive efficiencies based on goals scored and allowed in a game, and the strength of the opponent."
+        "The offensive efficiency represents the number of goals a team would be expected to score against an "average" team in the dataset. The inverse is true for defensive efficiency."
+
+        "Games are then simulated by using the below ratings to fit a Diagonally-Inflated Bivariate Poisson (DIBP) distribution model, which forecasts the likelihood of every possible score for a game."
+        "The tournament simulations also depend on the format of the 2026 FIFA World Cup, ensuring that the Knockout Round matchups are generated according to the bracket published by FIFA."
     )
     @st.cache_data
     def load_team_ratings():
