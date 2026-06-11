@@ -741,12 +741,13 @@ def simulate_one_tournament_bracket():
     return wc, bracket, teams[0]
 
 
-single_tab, tournament_tab, group_tab, matchup_tab, best_matchups_tab = st.tabs([
+single_tab, tournament_tab, group_tab, matchup_tab, best_matchups_tab, team_ratings_tab = st.tabs([
     "One Tournament",
     "Tournament Odds",
     "Group Stage Odds",
     "Matchup Score Projections",
-    "Best Matchups"
+    "Best Matchups",
+    "Team Ratings"
 ])
 
 with single_tab:
@@ -970,3 +971,45 @@ with best_matchups_tab:
         st.error(f"Required CSV was not found: {exc.filename}. Put Group Stage Matchups.csv in the same folder as app.py.")
     except ValueError as exc:
         st.error(str(exc))
+
+with team_ratings_tab:
+    st.header("Team Ratings")
+    st.caption(
+        "Add methodology note here. Example: These ratings estimate each team's attacking efficiency, defensive efficiency, and overall strength. "
+        "They power the match-level goal projections used throughout the simulator."
+    )
+    @st.cache_data
+    def load_team_ratings():
+        ratings_df = pd.read_csv("fifa_efficiencies_app.csv")
+        ratings_df["team"] = ratings_df["team"].astype(str).str.strip()
+        ratings_df = ratings_df.rename(
+            columns={
+                "team": "Team",
+                "off_eff": "Offensive Rating",
+                "def_eff": "Defensive Rating",
+                "overall_rating": "Overall Rating"
+            }
+        )
+        return ratings_df
+    ratings_df = load_team_ratings()
+    ratings_df["Team"] = ratings_df["Team"].apply(team_with_flag_html)
+    ratings_df = ratings_df[
+        [
+            "Group",
+            "Team",
+            "Overall Rating",
+            "Offensive Rating",
+            "Defensive Rating"
+        ]
+    ]
+    ratings_df = ratings_df.sort_values(
+        "Overall Rating",
+        ascending=False
+    )
+    st.markdown(
+        df_to_html_table(
+            ratings_df,
+            classes="wc-table ratings-table"
+        ),
+        unsafe_allow_html=True
+    )
