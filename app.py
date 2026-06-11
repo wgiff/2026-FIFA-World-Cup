@@ -40,6 +40,34 @@ def inject_global_css():
     --wc-muted: #64748b;
     --wc-border: #dbe4f0;
 }
+/* Hide Streamlit chrome */
+[data-testid="stHeader"] {
+    display: none !important;
+}
+
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+[data-testid="stDecoration"] {
+    display: none !important;
+}
+
+[data-testid="stStatusWidget"] {
+    display: none !important;
+}
+
+#MainMenu {
+    visibility: hidden !important;
+}
+
+footer {
+    visibility: hidden !important;
+}
+
+header {
+    visibility: hidden !important;
+}
 html, body, [class*="css"] {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
@@ -50,7 +78,7 @@ html, body, [class*="css"] {
     color: var(--wc-text);
 }
 .block-container {
-    padding-top: 1.85rem !important;
+    padding-top: 0.75rem !important;
     padding-bottom: 2rem !important;
     max-width: 1500px;
 }
