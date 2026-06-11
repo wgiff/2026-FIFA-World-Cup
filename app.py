@@ -189,6 +189,50 @@ h3, .stMarkdown h3 {
 hr {
     border-color: rgba(148, 163, 184, 0.28);
 }
+
+.score-matrix-card {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(210, 222, 240, 0.9);
+    border-radius: 18px;
+    padding: 0.9rem 0.9rem 1rem 0.9rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.score-matrix-top-label {
+    text-align: center;
+    font-weight: 850;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+}
+.score-matrix-side-label {
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-right: 0.45rem;
+}
+@media (max-width: 700px) {
+    .score-matrix-card {
+        padding: 0.7rem 0.55rem;
+    }
+    .score-matrix-top-label {
+        text-align: left;
+        font-size: 0.92rem;
+        margin-left: 0.1rem;
+    }
+    .score-matrix-side-label {
+        min-height: auto;
+        justify-content: flex-start;
+        padding: 0 0 0.4rem 0;
+    }
+    .score-matrix-side-label .matrix-side-label {
+        max-width: 100%;
+        text-align: left;
+        font-size: 0.86rem;
+    }
+}
+
 </style>
         """,
         unsafe_allow_html=True
@@ -292,7 +336,12 @@ def flag_img_html(team, width=22):
 
 def team_html(team, width=24):
     team = str(team).strip()
-    return f'<span class="wc-team">{flag_img_html(team, width)}<span>{html.escape(team)}</span></span>'
+    return (
+        f'<span class="wc-team">'
+        f'{flag_img_html(team, width)}'
+        f'<span class="wc-team-name">{html.escape(team)}</span>'
+        f'</span>'
+    )
 
 
 def render_html_table(df, height=None):
@@ -318,6 +367,7 @@ table.wc-table {{
     border-collapse: separate;
     border-spacing: 0;
     font-size: 0.91rem;
+    table-layout: auto;
 }}
 table.wc-table th {{
     background: linear-gradient(180deg, #f9fbff 0%, #edf4ff 100%);
@@ -335,6 +385,9 @@ table.wc-table td {{
     padding: 0.42rem 0.58rem;
     vertical-align: middle;
     color: #172033;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
 }}
 table.wc-table tr:nth-child(even) td {{ background: rgba(247, 250, 255, 0.62); }}
 table.wc-table tr:hover td {{ background: #eaf3ff; }}
@@ -345,8 +398,19 @@ table.wc-table td:not(:first-child) {{
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    white-space: nowrap;
+    white-space: normal;
     font-weight: 750;
+    max-width: 100%;
+    min-width: 0;
+    line-height: 1.22;
+}}
+.wc-team-name {{
+    display: inline-block;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
 }}
 .matrix-side-label {{
     font-weight: 800;
@@ -372,6 +436,36 @@ table.wc-table td:not(:first-child) {{
     flex: 0 0 auto;
     box-shadow: none;
     vertical-align: -2px;
+}}
+@media (max-width: 700px) {{
+    .wc-table-wrap {{
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }}
+    table.wc-table {{
+        width: max-content;
+        min-width: 100%;
+        font-size: 0.78rem;
+    }}
+    table.wc-table th,
+    table.wc-table td {{
+        padding: 0.36rem 0.42rem;
+        max-width: 115px;
+    }}
+    table.wc-table th:first-child,
+    table.wc-table td:first-child {{
+        max-width: 145px;
+    }}
+    .wc-team {{
+        gap: 5px;
+        align-items: flex-start;
+        font-size: 0.78rem;
+    }}
+    .wc-team .wc-flag {{
+        width: 17px !important;
+        max-height: 12px;
+        margin-top: 2px;
+    }}
 }}
 </style>
 <div class="wc-table-wrap">{table_html}</div>
@@ -886,14 +980,17 @@ with matchup_tab:
         render_html_table(summary_display)
         st.subheader("Score Probability Matrix")
         st.markdown(
-            f"<div style='text-align:center; font-weight:700; font-size:1.1rem; margin-bottom:0.5rem;'>{team_html(away_team)} Goals</div>",
+            f"""
+            <div class="score-matrix-card">
+                <div class="score-matrix-top-label">{team_html(away_team)} Goals</div>
+            """,
             unsafe_allow_html=True
         )
-        label_col, matrix_col = st.columns([2.2, 10])
+        label_col, matrix_col = st.columns([1.8, 10])
         with label_col:
             st.markdown(
                 textwrap.dedent(f"""
-                <div style="height:430px; display:flex; align-items:center; justify-content:center; text-align:center; padding-right:0.5rem;">
+                <div class="score-matrix-side-label">
                     <div class="matrix-side-label">
                         {team_html(home_team)}<br>Goals
                     </div>
@@ -910,8 +1007,10 @@ with matchup_tab:
             )
             st.dataframe(
                 styled_matrix,
-                use_container_width=True
+                use_container_width=True,
+                height=360
             )
+        st.markdown("</div>", unsafe_allow_html=True)
 
 
 with best_matchups_tab:
