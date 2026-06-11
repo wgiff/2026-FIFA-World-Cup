@@ -1043,7 +1043,6 @@ with matchup_tab:
 
 with best_matchups_tab:
     st.header("Best Group Stage Matchups")
-    st.caption("Loaded from Group Stage Matchups.csv. Lower rank is better; 1 is the best matchup and 72 is the worst.")
     try:
         matchups = load_group_stage_matchups()
         metric_options = {
