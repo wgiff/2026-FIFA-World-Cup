@@ -992,9 +992,7 @@ with team_ratings_tab:
         )
         return ratings_df
     ratings_df = load_team_ratings()
-    ratings_df["Team"] = ratings_df["Team"].apply(
-        lambda x: f"{flag_img_html(x)} {html.escape(str(x))}"
-    )
+    
     ratings_df = ratings_df[
         [
             "Group",
