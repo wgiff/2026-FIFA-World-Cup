@@ -810,7 +810,6 @@ with single_tab:
 
 with tournament_tab:
     st.header("Results of 10,000 Tournament Simulations")
-    st.caption("Loaded from Tournament Sims.csv, so visitors do not need to rerun the full tournament simulation. Click any column header to sort ascending or descending.")
     try:
         tournament_results = load_tournament_odds()
         display = tournament_results.copy()
@@ -839,7 +838,6 @@ with tournament_tab:
 
 with group_tab:
     st.header("Results of 10,000 Group Stage Simulations")
-    st.caption("Finish probabilities are loaded from Group Sims.csv. Match-level probabilities are ordered by Group Stage Matchups.csv and cached on demand by group.")
     group_name = st.selectbox(
         "Select group",
         sorted(simulation.world_cup_groups.keys()),
@@ -966,7 +964,7 @@ with best_matchups_tab:
         if selected_original in display.columns and selected_original != "Rank":
             columns = [col for col in columns if col != selected_original]
         columns = [col for col in columns if col in display.columns]
-        st.subheader(f"Top {top_n} Matchups by {selected_metric}")
+        st.subheader(f"Top {top_n} Matchups by {selected_metric} Rank")
         render_html_table(display[columns], height=720)
     except FileNotFoundError as exc:
         st.error(f"Required CSV was not found: {exc.filename}. Put Group Stage Matchups.csv in the same folder as app.py.")
