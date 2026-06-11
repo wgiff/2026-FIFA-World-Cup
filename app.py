@@ -203,10 +203,10 @@ st.markdown(
     <div class="wc-hero-title">🏆 2026 FIFA World Cup Simulator</div>
     <div class="wc-hero-subtitle">Interactive Monte Carlo tournament forecasts, group-stage odds, and matchup score distributions.</div>
     <div class="wc-hero-pill-row">
-        <span class="wc-pill">⚽ 48 teams</span>
-        <span class="wc-pill">📊 10,000-sim odds</span>
-        <span class="wc-pill">🔥 Score heatmaps</span>
-        <span class="wc-pill">🏟️ Full bracket</span>
+        <span class="wc-pill">⚽ 48 Teams</span>
+        <span class="wc-pill">📊 Odds from 10,000 sims</span>
+        <span class="wc-pill">🔥 Score Heatmaps</span>
+        <span class="wc-pill">🏟️ Full Bracket</span>
     </div>
 </div>
     """,
