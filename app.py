@@ -867,7 +867,7 @@ single_tab, tournament_tab, group_tab, matchup_tab, best_matchups_tab, team_rati
     "One Tournament",
     "Tournament Odds",
     "Group Stage Odds",
-    "Matchup Score Projections",
+    "Matchup Forecast",
     "Best Matchups",
     "Team Ratings"
 ])
