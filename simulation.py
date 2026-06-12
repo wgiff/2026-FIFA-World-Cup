@@ -1,6 +1,7 @@
 import pickle
 import numpy as np
 import pandas as pd
+import os
 from scipy.special import gammaln, logsumexp
 
 with open('fifa_wc_2026.pkl', 'rb') as f:
@@ -15,6 +16,61 @@ ratings_lookup = (
     .set_index('team')[['off_eff', 'def_eff']]
     .to_dict('index')
 )
+
+COMPLETED_MATCHES_FILE = "Completed Matches - Group Stage.csv"
+
+
+def load_completed_matches():
+
+    if not os.path.exists(COMPLETED_MATCHES_FILE):
+        return {}
+
+    df = pd.read_csv(COMPLETED_MATCHES_FILE)
+
+    lookup = {}
+
+    for _, row in df.iterrows():
+
+        key = frozenset([
+            str(row["Team A"]).strip(),
+            str(row["Team B"]).strip()
+        ])
+
+        lookup[key] = {
+            "team_a": str(row["Team A"]).strip(),
+            "team_b": str(row["Team B"]).strip(),
+            "team_a_goals": int(row["Team A Goals"]),
+            "team_b_goals": int(row["Team B Goals"]),
+            "group": row["Group"],
+            "date": row["Date"]
+        }
+
+    return lookup
+
+
+completed_matches_lookup = load_completed_matches()
+
+def get_completed_match_result(team_a, team_b):
+
+    key = frozenset([team_a, team_b])
+
+    if key not in completed_matches_lookup:
+        return None
+
+    result = completed_matches_lookup[key]
+
+    if result["team_a"] == team_a:
+
+        return (
+            result["team_a_goals"],
+            result["team_b_goals"]
+        )
+
+    return (
+        result["team_b_goals"],
+        result["team_a_goals"]
+    )
+
 
 def log_dibp_pmf_single(x, y, lam1, lam2, lam3):
     min_xy = int(min(x, y))
@@ -201,12 +257,23 @@ def simulate_round_robin_once(group_teams, host_team=None, max_score=10):
             away_team = team_b
             neutral = True
 
-        hG, aG = simulate_game_once(
-            home_team=home_team,
-            away_team=away_team,
-            neutral=neutral,
-            max_score=max_score
+        completed_result = get_completed_match_result(
+            home_team,
+            away_team
         )
+        
+        if completed_result is not None:
+        
+            hG, aG = completed_result
+        
+        else:
+        
+            hG, aG = simulate_game_once(
+                home_team=home_team,
+                away_team=away_team,
+                neutral=neutral,
+                max_score=max_score
+            )
 
         #print(f"{home_team} {hG}-{aG} {away_team}")
 
