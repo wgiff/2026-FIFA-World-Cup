@@ -1010,7 +1010,7 @@ with matchup_tab:
         st.markdown(
             f"""
             <div class="score-matrix-card">
-                <div class="score-matrix-top-label">{team_html(away_team)} Goals</div>
+                <div class="score-matrix-top-label">{team_html(away_team)}</div>
             """,
             unsafe_allow_html=True
         )
@@ -1020,7 +1020,7 @@ with matchup_tab:
                 textwrap.dedent(f"""
                 <div class="score-matrix-side-label">
                     <div class="matrix-side-label">
-                        {team_html(home_team)}<br>Goals
+                        {team_html(home_team)}<br>
                     </div>
                 </div>
                 """).strip(),
