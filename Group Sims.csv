@@ -1,44 +1,44 @@
 team,group,1st,2nd,3rd,4th
-Mexico,A,78.82,16.93,3.83,0.42
-South Korea,A,17.79,52.89,24.94,4.38
-Czech Republic,A,1.85,11.79,36.99,49.37
-South Africa,A,1.54,18.39,34.24,45.83
-Canada,B,47.6,31.6,15.1,5.6
-Switzerland,B,38.4,30.8,23.4,7.3
-Bosnia and Herzegovina,B,11,26.9,37.4,24.7
-Qatar,B,3,10.6,24,62.4
-Brazil,C,55.1,31.3,10.9,2.7
-Morocco,C,29.2,47.1,20.7,3
-Scotland,C,14.1,18,51.1,16.8
-Haiti,C,1.6,3.6,17.3,77.5
-United States,D,61.9,23.3,12.7,2.2
-Turkey,D,4.2,17.8,34.9,43.1
-Australia,D,31.4,43.3,21.3,3.9
-Paraguay,D,2.4,15.6,31.1,50.9
-Germany,E,60.1,26,13.8,0.1
-Ivory Coast,E,36.6,45.7,17.2,0.5
-Ecuador,E,3.2,27.4,64.3,5.1
-Curacao,E,0.1,0.9,4.8,94.2
-Netherlands,F,46.5,33.4,13.8,6.3
-Japan,F,31.6,38.7,20.3,9.4
-Sweden,F,19.4,23.4,47.1,10.1
-Tunisia,F,2.6,4.5,18.8,74.2
-Belgium,G,52.8,27.8,13.4,6
-Egypt,G,26.4,39.2,21.2,13.2
-Iran,G,16.1,21.2,38.8,23.9
-New Zealand,G,4.8,11.8,26.5,57
-Spain,H,58.8,27.8,11.2,2.2
-Uruguay,H,30.4,37.9,26,5.7
-Cape Verde,H,8.4,24.2,39,28.4
-Saudi Arabia,H,2.4,10.1,23.9,63.7
-France,I,74.2,24.2,1.6,0
-Norway,I,24.1,54.1,21.6,0.3
-Senegal,I,1.7,20.8,63.8,13.7
-Iraq,I,0.1,0.8,13.1,86
-Argentina,J,83.32,15.6,1,0
-Austria,J,15.69,68.4,15.5,0.4
-Algeria,J,0.076,14.3,54.5,30.4
-Jordan,J,0.023,1.7,29,69.1
+Mexico,A,100,0,0,0
+South Korea,A,0,70.2,25.8,4
+Czech Republic,A,0,8.5,38.2,53.3
+South Africa,A,0,21.3,36,42.7
+Canada,B,63.5,36.5,0,0
+Switzerland,B,36.5,63,0.5,0
+Bosnia and Herzegovina,B,0,0.5,80.4,19.1
+Qatar,B,0,0,19,81
+Brazil,C,60.4,26,13.6,0
+Morocco,C,35.9,63,1,0
+Scotland,C,3.6,11,85.4,0
+Haiti,C,0,0,0,100
+United States,D,100,0,0,0
+Turkey,D,0,0,0,100
+Australia,D,0,62.3,37.7,0
+Paraguay,D,0,37.7,62.3,0
+Germany,E,100,0,0,0
+Ivory Coast,E,0,91.2,8.8,0
+Ecuador,E,0,3,88.2,8.8
+Curacao,E,0,5.8,3,91.2
+Netherlands,F,42.4,56.9,0.6,0
+Japan,F,50.6,36.7,12.8,0
+Sweden,F,7,6.4,86.6,0
+Tunisia,F,0,0,0,100
+Egypt,G,64,16.2,19.8,0
+Belgium,G,18.6,60.5,15,5.9
+Iran,G,17.4,17.7,60.9,4
+New Zealand,G,0,5.7,4.2,90.1
+Spain,H,81.3,10.3,8.4,0
+Cape Verde,H,6.3,60.2,16.8,16.7
+Uruguay,H,12.4,12.9,71.4,3.3
+Saudi Arabia,H,0,16.6,3.4,80
+France,I,86.6,13.4,0,0
+Norway,I,13.4,86.6,0,0
+Senegal,I,0,0,88.1,11.9
+Iraq,I,0,0,11.9,88.1
+Argentina,J,100,0,0,0
+Austria,J,0,76.9,23.1,0
+Algeria,J,0,23.1,76.9,0
+Jordan,J,0,0,0,100
 Colombia,K,72.3,19.8,7.6,0.4
 Portugal,K,21.2,46,24.7,8.1
 DR Congo,K,5.9,25.2,49.8,19.1
