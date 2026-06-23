@@ -210,6 +210,37 @@ def simulate_game_once(home_team, away_team, neutral=False, max_score=10):
 
 import itertools
 
+def get_head_to_head_points(results, tied_teams):
+    """
+    Returns a dict of head-to-head points earned
+    among teams tied on total points.
+    """
+
+    h2h_points = {team: 0 for team in tied_teams}
+
+    for match in results:
+
+        home = match['home_team']
+        away = match['away_team']
+
+        if home not in tied_teams or away not in tied_teams:
+            continue
+
+        hG = match['home_score']
+        aG = match['away_score']
+
+        if hG > aG:
+            h2h_points[home] += 3
+
+        elif aG > hG:
+            h2h_points[away] += 3
+
+        else:
+            h2h_points[home] += 1
+            h2h_points[away] += 1
+
+    return h2h_points
+
 def simulate_round_robin_once(group_teams, host_team=None, max_score=10):
     if len(group_teams) != 4:
         raise ValueError("group_teams must contain exactly 4 teams.")
@@ -316,18 +347,43 @@ def simulate_round_robin_once(group_teams, host_team=None, max_score=10):
 
     standings = pd.DataFrame(table.values())
 
+    standings['h2h_points'] = 0
+
+    for points_value in standings['points'].unique():
+    
+        tied_teams = standings.loc[
+            standings['points'] == points_value,
+            'team'
+        ].tolist()
+    
+        if len(tied_teams) < 2:
+            continue
+    
+        h2h = get_head_to_head_points(
+            results,
+            tied_teams
+        )
+
+        for team, pts in h2h.items():
+            standings.loc[
+                standings['team'] == team,
+                'h2h_points'
+            ] = pts
+
     standings = standings.sort_values(
         by=[
             'points',
+            'h2h_points',
             'goal_diff',
             'goals_for'
         ],
         ascending=[
             False,
             False,
+            False,
             False
         ]
-    ).reset_index(drop=True)
+    )
 
     standings['rank'] = standings.index + 1
 
@@ -345,10 +401,6 @@ def simulate_round_robin_once(group_teams, host_team=None, max_score=10):
             'points'
         ]
     ]
-
-    #print()
-    #print("Final Standings")
-    #print(standings.to_string(index=False))
 
     sorted_teams = standings['team'].tolist()
 
