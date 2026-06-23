@@ -535,11 +535,11 @@ import random
 
 def simulate_knockout_match(a, b):
     if a in ("United States", "Mexico", "Canada"):
-        aG, bG = simulate_game_once(a, b, neutral = True, max_score = 10)
-    elif b in ("United States", "Mexico", "Canada"):
-        bG, aG = simulate_game_once(b, a, neutral = True, max_score = 10)
-    else:
         aG, bG = simulate_game_once(a, b, neutral = False, max_score = 10)
+    elif b in ("United States", "Mexico", "Canada"):
+        bG, aG = simulate_game_once(b, a, neutral = False, max_score = 10)
+    else:
+        aG, bG = simulate_game_once(a, b, neutral = True, max_score = 10)
 
     return aG, bG
 
